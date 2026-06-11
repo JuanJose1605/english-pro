@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --nav-h: 4.5rem; /* sticky navbar height, used for scroll-margin */
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-body text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-heading;
+  }
+
+  /* Anchored sections clear the fixed navbar when scrolled to */
+  section[id] {
+    scroll-margin-top: var(--nav-h);
+  }
+
+  /* Visible focus ring for keyboard users */
+  :focus-visible {
+    outline: 3px solid #004088;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: #004088;
+    color: #fff;
+  }
+}
+
+@layer components {
+  .container-pro {
+    @apply mx-auto w-full max-w-container px-4 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary;
+  }
+
+  /* Primary CTA — red, the single highest-intent action per viewport */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-accent px-7 py-3.5 text-base font-heading font-semibold text-white shadow-glow transition-all duration-200 hover:bg-accent-600 hover:-translate-y-0.5 focus-visible:outline-none active:translate-y-0 disabled:opacity-50;
+    min-height: 48px;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-primary bg-white px-7 py-3.5 text-base font-heading font-semibold text-primary transition-all duration-200 hover:bg-primary-50 hover:-translate-y-0.5 focus-visible:outline-none active:translate-y-0;
+    min-height: 48px;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-heading font-semibold text-ink transition-colors duration-200 hover:text-primary;
+  }
+
+  .card-pro {
+    @apply rounded-2xl border border-line bg-white p-6 shadow-card transition-all duration-300;
+  }
+}
+
+/* Honor user motion preference globally */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

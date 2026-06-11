@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp *)",
+      "Bash(mkdir -p _docx_tmp)",
+      "Bash(unzip -o EnglishPro_Brief.docx -d _docx_tmp word/document.xml)",
+      "Bash(pip install *)",
+      "Read(//c/Users/Juan/.claude/skills/ui-ux-pro-max-skill/.claude/skills/ui-ux-pro-max/**)",
+      "Bash(python scripts/search.py \"online english language academy education course certification trustworthy premium\" --design-system -f markdown)",
+      "Bash(python \"C:/Users/Juan/.claude/skills/ui-ux-pro-max-skill/src/ui-ux-pro-max/scripts/search.py\" \"online english language academy education course certification trustworthy premium\" --design-system -f markdown)",
+      "Bash(python C:/Users/Juan/.claude/skills/ui-ux-pro-max-skill/src/ui-ux-pro-max/scripts/search.py 'professional trustworthy corporate education modern clean' --domain typography -n 4)",
+      "Bash(npm --version)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:4173/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:4173/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:4173/assets/index-c3LrBbn2.js\")",
+      "Bash(kill %1)"
+    ]
+  }
+}
