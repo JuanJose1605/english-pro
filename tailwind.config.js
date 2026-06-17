@@ -40,6 +40,8 @@ export default {
       fontFamily: {
         heading: ['Poppins', 'system-ui', 'sans-serif'],
         body: ['Inter', 'system-ui', 'sans-serif'],
+        // Wordmark "English Pro Academy" — distinct from headings/body
+        brand: ['Montserrat', 'Poppins', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         xl: '1rem',

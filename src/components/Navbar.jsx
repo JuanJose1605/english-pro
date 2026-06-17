@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { navLinks, cta } from '../data/site'
 import useActiveSection from '../hooks/useActiveSection'
@@ -11,6 +12,11 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const active = useActiveSection(sectionIds)
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const onHome = location.pathname === '/'
+  const onBlog = location.pathname.startsWith('/blog')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -27,9 +33,21 @@ export default function Navbar() {
     }
   }, [open])
 
+  // Navigate to a landing section from any page: if we're not on the home
+  // page, go home first and ask Home to scroll once it mounts.
   const go = (id) => {
     setOpen(false)
-    scrollToId(id)
+    if (onHome) {
+      scrollToId(id)
+    } else {
+      navigate('/', { state: { scrollTo: id } })
+    }
+  }
+
+  const goHome = () => {
+    setOpen(false)
+    if (onHome) scrollToId('inicio')
+    else navigate('/')
   }
 
   return (
@@ -42,34 +60,53 @@ export default function Navbar() {
       <nav className="container-pro flex h-full items-center justify-between" aria-label="Principal">
         {/* Logo */}
         <button
-          onClick={() => go('inicio')}
+          onClick={goHome}
           className="flex items-center gap-2 focus-visible:outline-none"
           aria-label="English Pro Academy — ir al inicio"
         >
-          <img src="./logo.png" alt="English Pro Academy" className="h-40 w-auto sm:h-11" />
+          <img src="./logo.png" alt="English Pro Academy" className="h-16 w-auto sm:h-20 lg:h-[5.5rem]" />
         </button>
 
         {/* Desktop links */}
-        <ul className="hidden items-center gap-1 lg:flex">
+        <ul className="hidden items-center gap-2 lg:flex">
           {navLinks.map((link) => (
             <li key={link.id}>
               <button
                 onClick={() => go(link.id)}
-                className={`relative rounded-full px-3 py-2 text-sm font-medium transition-colors duration-200 hover:text-primary ${
-                  active === link.id ? 'text-primary' : 'text-ink'
+                className={`relative rounded-full px-4 py-2.5 text-base font-medium transition-colors duration-200 hover:text-primary ${
+                  onHome && active === link.id ? 'text-primary' : 'text-ink'
                 }`}
-                aria-current={active === link.id ? 'true' : undefined}
+                aria-current={onHome && active === link.id ? 'true' : undefined}
               >
                 {link.label}
-                {active === link.id && (
+                {onHome && active === link.id && (
                   <motion.span
                     layoutId="nav-underline"
-                    className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-accent"
+                    className="absolute inset-x-4 -bottom-0.5 h-0.5 rounded-full bg-accent"
                   />
                 )}
               </button>
             </li>
           ))}
+          {/* Blog — a real route, not a section anchor */}
+          <li>
+            <Link
+              to="/blog"
+              onClick={() => setOpen(false)}
+              className={`relative rounded-full px-4 py-2.5 text-base font-medium transition-colors duration-200 hover:text-primary ${
+                onBlog ? 'text-primary' : 'text-ink'
+              }`}
+              aria-current={onBlog ? 'page' : undefined}
+            >
+              Blog
+              {onBlog && (
+                <motion.span
+                  layoutId="nav-underline"
+                  className="absolute inset-x-4 -bottom-0.5 h-0.5 rounded-full bg-accent"
+                />
+              )}
+            </Link>
+          </li>
         </ul>
 
         {/* Desktop CTA */}
@@ -112,13 +149,24 @@ export default function Navbar() {
                   <button
                     onClick={() => go(link.id)}
                     className={`w-full rounded-xl px-4 py-3.5 text-left text-lg font-medium transition-colors ${
-                      active === link.id ? 'bg-primary-50 text-primary' : 'text-ink'
+                      onHome && active === link.id ? 'bg-primary-50 text-primary' : 'text-ink'
                     }`}
                   >
                     {link.label}
                   </button>
                 </motion.li>
               ))}
+              <motion.li variants={{ hidden: { opacity: 0, x: -16 }, show: { opacity: 1, x: 0 } }}>
+                <Link
+                  to="/blog"
+                  onClick={() => setOpen(false)}
+                  className={`block w-full rounded-xl px-4 py-3.5 text-left text-lg font-medium transition-colors ${
+                    onBlog ? 'bg-primary-50 text-primary' : 'text-ink'
+                  }`}
+                >
+                  Blog
+                </Link>
+              </motion.li>
               <motion.li
                 className="mt-3"
                 variants={{ hidden: { opacity: 0, x: -16 }, show: { opacity: 1, x: 0 } }}

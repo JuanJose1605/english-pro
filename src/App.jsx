@@ -1,26 +1,23 @@
 import { useCallback, useState } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import FloatingButtons from './components/FloatingButtons'
 import LevelTest from './components/LevelTest'
-import Hero from './components/sections/Hero'
-import TrustBar from './components/sections/TrustBar'
-import Nosotros from './components/sections/Nosotros'
-import PorQue from './components/sections/PorQue'
-import Programas from './components/sections/Programas'
-import Metodologia from './components/sections/Metodologia'
-import Niveles from './components/sections/Niveles'
-import Certificaciones from './components/sections/Certificaciones'
-import Docentes from './components/sections/Docentes'
-import Galeria from './components/sections/Galeria'
-import Testimonios from './components/sections/Testimonios'
-import Cotiza from './components/sections/Cotiza'
-import FAQ from './components/sections/FAQ'
-import Contacto from './components/sections/Contacto'
 import Footer from './components/sections/Footer'
+import Home from './pages/Home'
+import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
+import AdminLogin from './pages/admin/AdminLogin'
+import AdminPosts from './pages/admin/AdminPosts'
+import AdminEditor from './pages/admin/AdminEditor'
 import { scrollToId } from './lib/scroll'
 
 export default function App() {
   const [quizOpen, setQuizOpen] = useState(false)
+  const location = useLocation()
+
+  // The admin panel has its own chrome — hide the marketing navbar/footer there.
+  const isAdmin = location.pathname.startsWith('/admin')
 
   const openQuiz = useCallback(() => setQuizOpen(true), [])
   const closeQuiz = useCallback(() => setQuizOpen(false), [])
@@ -28,29 +25,28 @@ export default function App() {
 
   return (
     <>
-      <Navbar />
+      {!isAdmin && <Navbar />}
 
-      <main>
-        <Hero onOpenQuiz={openQuiz} />
-        <TrustBar />
-        <Nosotros />
-        <PorQue />
-        <Programas />
-        <Metodologia />
-        <Niveles />
-        <Certificaciones />
-        <Docentes />
-        <Galeria />
-        <Testimonios />
-        <Cotiza />
-        <FAQ />
-        <Contacto />
-      </main>
+      <Routes>
+        <Route path="/" element={<Home onOpenQuiz={openQuiz} />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
 
-      <Footer />
+        {/* Admin */}
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/admin/posts" element={<AdminPosts />} />
+        <Route path="/admin/posts/new" element={<AdminEditor />} />
+        <Route path="/admin/posts/:id/edit" element={<AdminEditor />} />
+      </Routes>
 
-      <FloatingButtons onTrial={goTrial} />
-      <LevelTest open={quizOpen} onClose={closeQuiz} />
+      {!isAdmin && <Footer />}
+
+      {!isAdmin && (
+        <>
+          <FloatingButtons onTrial={goTrial} />
+          <LevelTest open={quizOpen} onClose={closeQuiz} />
+        </>
+      )}
     </>
   )
 }

@@ -1,0 +1,10 @@
+# Bloquea el acceso directo a archivos sensibles del backend
+<FilesMatch "\.(sql)$">
+  Require all denied
+</FilesMatch>
+
+<Files "config.php">
+  # config.php se incluye desde otros .php, pero no debe servirse como texto.
+  # PHP nunca expone el código fuente, así que esto es una capa extra.
+  Require all denied
+</Files>

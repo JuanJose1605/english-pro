@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { ImageIcon } from 'lucide-react'
 import Section from '../ui/Section'
+import BrandText from '../ui/BrandText'
 
 // ⚠️ PLACEHOLDER — reemplazar cada bloque por fotos reales de clases,
 // estudiantes y docentes interactuando (requisito del brief, punto 10).
@@ -17,7 +18,7 @@ export default function Galeria() {
     <Section
       id="galeria"
       eyebrow="Nuestras clases"
-      title="Así se vive el aprendizaje en English Pro."
+      title={<BrandText>Así se vive el aprendizaje en English Pro.</BrandText>}
       subtitle="Clases reales, en vivo y dinámicas, donde la interacción es la protagonista."
     >
       <div className="grid auto-rows-[160px] grid-cols-2 gap-4 sm:grid-cols-4">

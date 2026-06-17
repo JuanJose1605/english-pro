@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --nav-h: 4.5rem; /* sticky navbar height, used for scroll-margin */
+    --nav-h: 6.5rem; /* sticky navbar height, used for scroll-margin */
   }
 
   html {
@@ -65,6 +65,11 @@
 
   .card-pro {
     @apply rounded-2xl border border-line bg-white p-6 shadow-card transition-all duration-300;
+  }
+
+  /* Form control used across the admin panel */
+  .input {
+    @apply mt-1 w-full rounded-lg border border-line px-3 py-2.5 text-ink outline-none transition-colors focus:border-primary;
   }
 }
 

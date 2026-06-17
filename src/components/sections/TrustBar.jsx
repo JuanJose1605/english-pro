@@ -1,4 +1,5 @@
 import Reveal from '../ui/Reveal'
+import CertLogo from '../ui/CertLogo'
 import { certifications } from '../../data/site'
 
 export default function TrustBar() {
@@ -11,19 +12,22 @@ export default function TrustBar() {
           </p>
         </Reveal>
         <Reveal delay={0.1}>
-          <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+          <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
             {certifications.map((c) => (
-              <li
-                key={c.name}
-                className="font-heading text-xl font-bold tracking-tight text-muted/80 grayscale transition-all duration-300 hover:text-primary hover:grayscale-0 sm:text-2xl"
-                title={c.note}
-              >
-                {c.name}
+              <li key={c.name} title={c.note} className="flex items-center">
+                <CertLogo
+                  cert={c}
+                  imgClassName="h-10 w-auto object-contain opacity-80 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 sm:h-12"
+                  renderFallback={() => (
+                    <span className="font-heading text-xl font-bold tracking-tight text-muted/80 transition-colors duration-300 hover:text-primary sm:text-2xl">
+                      {c.name}
+                    </span>
+                  )}
+                />
               </li>
             ))}
           </ul>
         </Reveal>
-        {/* ⚠️ PLACEHOLDER — sustituir los nombres por los logotipos oficiales (SVG/PNG) */}
       </div>
     </section>
   )

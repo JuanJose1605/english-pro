@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { BadgeCheck } from 'lucide-react'
 import Section from '../ui/Section'
+import BrandText from '../ui/BrandText'
 import { teachers } from '../../data/site'
 
 export default function Docentes() {
@@ -9,7 +10,7 @@ export default function Docentes() {
       id="docentes"
       surface
       eyebrow="Nuestros docentes"
-      title="Conoce al equipo detrás de English Pro Academy."
+      title={<BrandText>Conoce al equipo detrás de English Pro Academy.</BrandText>}
       subtitle="Docentes especializados y certificados que guían cada clase en vivo con cercanía y experiencia."
     >
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

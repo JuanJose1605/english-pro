@@ -51,13 +51,15 @@ export const hero = {
   ],
 }
 
-// Trust bar — logos de certificaciones (⚠️ PLACEHOLDER: confirmar cuáles ofrece la academia)
+// Logos de certificaciones. Coloca los archivos reales en `public/images/certs/`.
+// Si el archivo no existe, se muestra el nombre estilizado como respaldo.
+// (⚠️ PLACEHOLDER: confirmar cuáles ofrece la academia)
 export const certifications = [
-  { name: 'TOEFL', note: 'Educational Testing Service' },
-  { name: 'IELTS', note: 'British Council' },
-  { name: 'Cambridge', note: 'B2 First · C1 Advanced' },
-  { name: 'TOEIC', note: 'Entorno profesional' },
-  { name: 'EF SET', note: 'Estándar internacional' },
+  { name: 'TOEFL', note: 'Educational Testing Service', logo: './images/certs/toefl.png' },
+  { name: 'IELTS', note: 'British Council', logo: './images/certs/ielts.png' },
+  { name: 'Cambridge', note: 'B2 First · C1 Advanced', logo: './images/certs/cambridge.png' },
+  { name: 'TOEIC', note: 'Entorno profesional', logo: './images/certs/toeic.png' },
+  { name: 'EF SET', note: 'Estándar internacional', logo: './images/certs/efset.png' },
 ]
 
 export const nosotros = {

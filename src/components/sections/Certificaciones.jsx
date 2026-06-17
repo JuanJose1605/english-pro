@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { ShieldCheck } from 'lucide-react'
 import Section from '../ui/Section'
+import CertLogo from '../ui/CertLogo'
 import { certifications } from '../../data/site'
 import { scrollToId } from '../../lib/scroll'
 import { cta } from '../../data/site'
@@ -23,10 +24,19 @@ export default function Certificaciones() {
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.4, delay: i * 0.06 }}
           >
-            <ShieldCheck size={28} className="text-primary" />
-            {/* ⚠️ PLACEHOLDER — reemplazar por el logotipo oficial de la certificación */}
-            <p className="mt-3 font-heading text-lg font-bold text-ink">{c.name}</p>
-            <p className="mt-1 text-xs text-muted">{c.note}</p>
+            <div className="flex h-14 items-center justify-center">
+              <CertLogo
+                cert={c}
+                imgClassName="max-h-14 w-auto object-contain"
+                renderFallback={() => (
+                  <div className="flex flex-col items-center">
+                    <ShieldCheck size={28} className="text-primary" />
+                    <p className="mt-2 font-heading text-lg font-bold text-ink">{c.name}</p>
+                  </div>
+                )}
+              />
+            </div>
+            <p className="mt-3 text-xs text-muted">{c.note}</p>
           </motion.div>
         ))}
       </div>

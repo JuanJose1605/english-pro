@@ -4,19 +4,21 @@ import { scrollToId } from '../../lib/scroll'
 export default function Footer() {
   const year = new Date().getFullYear()
   return (
-    <footer className="border-t border-line bg-white">
-      <div className="container-pro py-12">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="bg-primary-900 text-white">
+      <div className="container-pro py-14">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <img src="./logo.png" alt="English Pro Academy" className="h-12 w-auto" />
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
+            <span className="inline-flex rounded-2xl bg-white p-4 shadow-soft">
+              <img src="./logo.png" alt="English Pro Academy" className="h-20 w-auto" />
+            </span>
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/70">
               Academia de inglés 100% virtual. Clases en vivo, grupos reducidos y certificación
-              oficial. <span className="font-medium text-primary">Easy to teach, easy to learn.</span>
+              oficial. <span className="font-medium text-white">Easy to teach, easy to learn.</span>
             </p>
           </div>
 
           <nav aria-label="Enlaces del pie de página">
-            <h3 className="font-heading text-sm font-semibold uppercase tracking-wide text-ink">
+            <h3 className="font-heading text-sm font-semibold uppercase tracking-wide text-white">
               Navegación
             </h3>
             <ul className="mt-4 space-y-2">
@@ -24,7 +26,7 @@ export default function Footer() {
                 <li key={l.id}>
                   <button
                     onClick={() => scrollToId(l.id)}
-                    className="text-sm text-muted transition-colors hover:text-primary"
+                    className="text-sm text-white/70 transition-colors hover:text-white"
                   >
                     {l.label}
                   </button>
@@ -34,10 +36,10 @@ export default function Footer() {
           </nav>
 
           <div>
-            <h3 className="font-heading text-sm font-semibold uppercase tracking-wide text-ink">
+            <h3 className="font-heading text-sm font-semibold uppercase tracking-wide text-white">
               Contacto
             </h3>
-            <ul className="mt-4 space-y-2 text-sm text-muted">
+            <ul className="mt-4 space-y-2 text-sm text-white/70">
               <li>{contact.phone}</li>
               <li>{contact.email}</li>
               <li>{contact.schedule}</li>
@@ -49,7 +51,7 @@ export default function Footer() {
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-medium text-primary hover:underline"
+                  className="text-sm font-medium text-white/90 transition-colors hover:text-white hover:underline"
                 >
                   {s.name}
                 </a>
@@ -58,7 +60,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-line pt-6 text-center text-sm text-muted">
+        <div className="mt-12 border-t border-white/10 pt-6 text-center text-sm text-white/60">
           © {year} English Pro Academy. Todos los derechos reservados.
         </div>
       </div>
