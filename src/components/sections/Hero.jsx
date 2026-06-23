@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Sparkles, PlayCircle, Star, Headphones } from 'lucide-react'
+import { Sparkles, PlayCircle, Star } from 'lucide-react'
 import { hero, cta } from '../../data/site'
 import { scrollToId } from '../../lib/scroll'
 import Counter from '../ui/Counter'
@@ -80,20 +80,17 @@ export default function Hero({ onOpenQuiz }) {
 
         {/* Visual */}
         <motion.div
-          className="relative"
+          className="relative w-full"
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.15 }}
         >
-          {/* ⚠️ PLACEHOLDER — reemplazar por foto real de una clase en vivo */}
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-primary-700 shadow-lift">
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-8 text-center text-white/90">
-              <Headphones size={56} className="opacity-90" />
-              <p className="font-heading text-lg font-semibold">Clases virtuales en vivo</p>
-              <p className="text-sm text-white/70">
-                [ Espacio para foto real de docente y estudiantes en clase ]
-              </p>
-            </div>
+          <div className="relative aspect-square overflow-hidden rounded-2xl bg-primary shadow-lift">
+            <img
+              src="./banner.jpg"
+              alt="English Pro — clases virtuales de inglés en vivo"
+              className="h-full w-full object-cover"
+            />
           </div>
 
           {/* Floating badge */}

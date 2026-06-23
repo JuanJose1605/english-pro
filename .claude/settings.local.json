@@ -18,7 +18,15 @@
       "Bash(kill %1)",
       "Bash(git -C \"C:\\\\Users\\\\Juan\\\\Documents\\\\englishPro\" remote -v)",
       "Bash(git -C \"C:\\\\Users\\\\Juan\\\\Documents\\\\englishPro\" log --oneline -5)",
-      "Bash(npm ls *)"
+      "Bash(npm ls *)",
+      "Bash(Select-Object -Last 15)",
+      "PowerShell(npm run *)",
+      "Bash(cp -r dist/assets deploy-cambios/assets)",
+      "Bash(tar -a -c -f englishpro-cambios.zip -C deploy-cambios .)",
+      "Bash(tar -tf englishpro-cambios.zip)",
+      "Bash(xxd)",
+      "Bash(unzip -t englishpro-cambios-v2.zip)",
+      "Bash(/c/Users/Juan/AppData/Local/Programs/Python/Python312/python *)"
     ]
   }
 }

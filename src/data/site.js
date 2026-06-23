@@ -28,11 +28,12 @@ export const contact = {
 export const navLinks = [
   { id: 'inicio', label: 'Inicio' },
   { id: 'nosotros', label: 'Nosotros' },
-  { id: 'programas', label: 'Programas' },
+  {
+    id: 'programas',
+    label: 'Programas',
+    children: [{ id: 'metodologia', label: 'Metodología' }],
+  },
   { id: 'certificaciones', label: 'Certificaciones' },
-  { id: 'metodologia', label: 'Metodología' },
-  { id: 'cotiza', label: 'Cotiza' },
-  { id: 'faq', label: 'FAQ' },
   { id: 'contacto', label: 'Contacto' },
 ]
 
@@ -55,11 +56,9 @@ export const hero = {
 // Si el archivo no existe, se muestra el nombre estilizado como respaldo.
 // (⚠️ PLACEHOLDER: confirmar cuáles ofrece la academia)
 export const certifications = [
-  { name: 'TOEFL', note: 'Educational Testing Service', logo: './images/certs/toefl.png' },
   { name: 'IELTS', note: 'British Council', logo: './images/certs/ielts.png' },
   { name: 'Cambridge', note: 'B2 First · C1 Advanced', logo: './images/certs/cambridge.png' },
   { name: 'TOEIC', note: 'Entorno profesional', logo: './images/certs/toeic.png' },
-  { name: 'EF SET', note: 'Estándar internacional', logo: './images/certs/efset.png' },
 ]
 
 export const nosotros = {
@@ -154,12 +153,12 @@ export const methodology = {
 }
 
 export const levels = [
-  { code: 'A1', name: 'Principiante', months: '2–3 meses' },
-  { code: 'A2', name: 'Básico', months: '3–4 meses' },
-  { code: 'B1', name: 'Intermedio', months: '4–5 meses' },
-  { code: 'B2', name: 'Intermedio alto', months: '5–6 meses' },
-  { code: 'C1', name: 'Avanzado', months: '6–7 meses' },
-  { code: 'C2', name: 'Maestría', months: '7+ meses' },
+  { code: 'A1', name: 'Principiante', hours: '80–100 h' },
+  { code: 'A2', name: 'Básico', hours: '100–120 h' },
+  { code: 'B1', name: 'Intermedio', hours: '150–180 h' },
+  { code: 'B2', name: 'Intermedio alto', hours: '180–200 h' },
+  { code: 'C1', name: 'Avanzado', hours: '200–220 h' },
+  { code: 'C2', name: 'Maestría', hours: '220+ h' },
 ]
 
 // ⚠️ PLACEHOLDER — datos reales de docentes (nombre, especialidad, credenciales, foto)
@@ -236,6 +235,7 @@ export const faqs = [
 export const cta = {
   trial: '¡Quiero mi clase de prueba!',
   trialFloating: 'Toma una clase gratis',
+  quoteNav: 'Cotiza tu plan',
   test: 'Test de nivel gratis · 15 min',
   quote: 'Cotizar mi plan',
   advisor: 'Chatear con un asesor',

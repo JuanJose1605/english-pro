@@ -12,8 +12,12 @@ function Cover({ post, className = '' }) {
       className={`relative overflow-hidden ${className}`}
       style={{ background: `linear-gradient(135deg, ${post.cover[0]}, ${post.cover[1]})` }}
     >
-      <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_30%_20%,#fff,transparent_45%)]" />
-      <span className="absolute left-4 top-4 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+      {post.coverImage ? (
+        <img src={post.coverImage} alt="" className="absolute inset-0 h-full w-full object-cover" />
+      ) : (
+        <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_30%_20%,#fff,transparent_45%)]" />
+      )}
+      <span className="absolute left-4 top-4 z-10 rounded-full bg-black/40 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
         {post.category}
       </span>
     </div>
@@ -79,9 +83,9 @@ export default function Blog() {
       {/* Header */}
       <section className="bg-white">
         <div className="container-pro py-14 text-center sm:py-16">
-          <span className="eyebrow">Blog</span>
+          <span className="eyebrow">News</span>
           <h1 className="mt-3 text-3xl font-bold leading-tight text-ink sm:text-4xl lg:text-5xl">
-            El blog de <BrandText>English Pro</BrandText>
+            <BrandText>English Pro</BrandText> News
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-muted">
             Consejos, recursos y guías para aprender inglés de verdad y certificar tu nivel ante el

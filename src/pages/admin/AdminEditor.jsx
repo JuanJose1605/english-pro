@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, Save } from 'lucide-react'
+import { ArrowLeft, ImagePlus, Save, Trash2, Upload } from 'lucide-react'
 import useRequireAuth from './useRequireAuth'
-import { adminGetPost, createPost, updatePost } from '../../lib/api'
+import { adminGetPost, createPost, updatePost, uploadImage } from '../../lib/api'
 import { blogCategories } from '../../data/blog'
 
 const empty = {
@@ -13,6 +13,7 @@ const empty = {
   author_name: 'Equipo English Pro',
   cover_from: '#004088',
   cover_to: '#003066',
+  cover_image: '',
   read_mins: 4,
   status: 'draft',
   featured: 0,
@@ -32,6 +33,8 @@ export default function AdminEditor() {
   const [loading, setLoading] = useState(isEdit)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const [uploading, setUploading] = useState('') // 'cover' | 'content' | ''
+  const contentRef = useRef(null)
 
   useEffect(() => {
     if (user && isEdit) {
@@ -52,6 +55,44 @@ export default function AdminEditor() {
   const set = (key) => (e) => {
     const value = e.target.type === 'checkbox' ? (e.target.checked ? 1 : 0) : e.target.value
     setForm((f) => ({ ...f, [key]: value }))
+  }
+
+  // Sube la imagen de portada de la noticia.
+  const onCoverFile = async (e) => {
+    const file = e.target.files?.[0]
+    e.target.value = '' // permite volver a elegir el mismo archivo
+    if (!file) return
+    setError('')
+    setUploading('cover')
+    try {
+      const url = await uploadImage(file)
+      setForm((f) => ({ ...f, cover_image: url }))
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setUploading('')
+    }
+  }
+
+  // Sube una imagen y la inserta dentro del contenido, en la posición del cursor.
+  const onContentImage = async (e) => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    setError('')
+    setUploading('content')
+    try {
+      const url = await uploadImage(file)
+      const snippet = `\n\n![Pie de foto opcional](${url})\n\n`
+      const el = contentRef.current
+      const pos = el ? el.selectionStart : form.content.length
+      const next = form.content.slice(0, pos) + snippet + form.content.slice(pos)
+      setForm((f) => ({ ...f, content: next }))
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setUploading('')
+    }
   }
 
   const save = async (status) => {
@@ -130,9 +171,26 @@ export default function AdminEditor() {
 
           <Field
             label="Contenido"
-            hint="Una línea en blanco = nuevo párrafo · ## Subtítulo · > Cita · - Elemento de lista"
+            hint="Una línea en blanco = nuevo párrafo · ## Subtítulo · > Cita · - Elemento de lista · ![pie](url) Imagen"
           >
+            <div className="mb-2 flex flex-wrap items-center gap-2">
+              <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-sm font-medium text-ink transition-colors hover:border-primary hover:text-primary">
+                <ImagePlus size={16} />
+                {uploading === 'content' ? 'Subiendo…' : 'Insertar imagen'}
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp,image/gif"
+                  onChange={onContentImage}
+                  disabled={uploading === 'content'}
+                  className="hidden"
+                />
+              </label>
+              <span className="text-xs text-muted">
+                Se inserta donde tengas el cursor dentro del texto.
+              </span>
+            </div>
             <textarea
+              ref={contentRef}
               value={form.content}
               onChange={set('content')}
               rows={14}
@@ -161,7 +219,44 @@ export default function AdminEditor() {
             </Field>
           </div>
 
-          <Field label="Colores de portada" hint="Degradado de la imagen de cabecera.">
+          <Field
+            label="Imagen de portada"
+            hint="Aparece en la cabecera de la noticia y en la tarjeta del listado. Si no subes ninguna, se usa el degradado de abajo."
+          >
+            {form.cover_image ? (
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <img
+                  src={form.cover_image}
+                  alt="Portada"
+                  className="h-28 w-full rounded-lg border border-line object-cover sm:w-48"
+                />
+                <button
+                  type="button"
+                  onClick={() => setForm((f) => ({ ...f, cover_image: '' }))}
+                  className="inline-flex items-center gap-2 self-start rounded-lg border border-line px-3 py-1.5 text-sm font-medium text-accent transition-colors hover:border-accent hover:bg-accent-50"
+                >
+                  <Trash2 size={16} /> Quitar imagen
+                </button>
+              </div>
+            ) : (
+              <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-dashed border-line px-4 py-3 text-sm font-medium text-ink transition-colors hover:border-primary hover:text-primary">
+                <Upload size={18} />
+                {uploading === 'cover' ? 'Subiendo…' : 'Subir imagen de portada'}
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp,image/gif"
+                  onChange={onCoverFile}
+                  disabled={uploading === 'cover'}
+                  className="hidden"
+                />
+              </label>
+            )}
+          </Field>
+
+          <Field
+            label="Colores de portada"
+            hint="Degradado de respaldo cuando la noticia no tiene imagen de portada."
+          >
             <div className="flex items-center gap-4">
               <input
                 type="color"

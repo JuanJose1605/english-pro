@@ -15,8 +15,7 @@ export default function Nosotros() {
     <Section id="nosotros" surface headingCenter={false}>
       <div className="grid items-center gap-12 lg:grid-cols-2">
         <Reveal>
-          <span className="eyebrow">{nosotros.eyebrow}</span>
-          <h2 className="mt-3 text-3xl font-bold leading-tight text-ink sm:text-4xl">
+          <h2 className="text-3xl font-bold leading-tight text-ink sm:text-4xl">
             <BrandText>{nosotros.title}</BrandText>
           </h2>
           <div className="mt-5 space-y-4 text-lg leading-relaxed text-muted">

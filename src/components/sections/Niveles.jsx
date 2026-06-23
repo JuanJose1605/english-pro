@@ -30,7 +30,7 @@ export default function Niveles() {
             <div className="flex items-baseline justify-between">
               <span className="font-heading text-3xl font-extrabold text-primary">{lvl.code}</span>
               <span className="flex items-center gap-1 text-sm font-medium text-muted">
-                <Clock size={14} /> {lvl.months}
+                <Clock size={14} /> {lvl.hours}
               </span>
             </div>
             <p className="mt-2 font-heading text-lg font-semibold text-ink">{lvl.name}</p>

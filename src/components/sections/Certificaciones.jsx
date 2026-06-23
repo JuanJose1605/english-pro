@@ -14,7 +14,7 @@ export default function Certificaciones() {
       title="Tu esfuerzo merece un respaldo oficial."
       subtitle="Obtén certificados con validez real que abren puertas en el mercado laboral y académico."
     >
-      <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-3">
         {certifications.map((c, i) => (
           <motion.div
             key={c.name}

@@ -28,6 +28,20 @@ function Block({ block }) {
           ))}
         </ul>
       )
+    case 'img':
+      return (
+        <figure className="my-8">
+          <img
+            src={block.src}
+            alt={block.alt}
+            loading="lazy"
+            className="w-full rounded-2xl border border-line"
+          />
+          {block.alt && (
+            <figcaption className="mt-2 text-center text-sm text-muted">{block.alt}</figcaption>
+          )}
+        </figure>
+      )
     default:
       return <p className="mt-4 leading-relaxed text-muted">{block.text}</p>
   }
@@ -74,10 +88,22 @@ export default function BlogPost() {
     <main className="bg-white pt-[var(--nav-h)]">
       {/* Cover banner */}
       <div
-        className="relative"
+        className="relative overflow-hidden"
         style={{ background: `linear-gradient(135deg, ${post.cover[0]}, ${post.cover[1]})` }}
       >
-        <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_25%_15%,#fff,transparent_45%)]" />
+        {post.coverImage ? (
+          <>
+            <img
+              src={post.coverImage}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            {/* Capa oscura para que el texto blanco siga siendo legible sobre la foto */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/30" />
+          </>
+        ) : (
+          <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_25%_15%,#fff,transparent_45%)]" />
+        )}
         <div className="container-pro relative py-14 sm:py-20">
           <Link
             to="/blog"
@@ -143,9 +169,13 @@ export default function BlogPost() {
                   className="group flex items-center gap-5 rounded-2xl border border-line bg-white p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lift"
                 >
                   <div
-                    className="hidden h-20 w-24 shrink-0 rounded-xl sm:block"
+                    className="hidden h-20 w-24 shrink-0 overflow-hidden rounded-xl sm:block"
                     style={{ background: `linear-gradient(135deg, ${r.cover[0]}, ${r.cover[1]})` }}
-                  />
+                  >
+                    {r.coverImage && (
+                      <img src={r.coverImage} alt="" className="h-full w-full object-cover" />
+                    )}
+                  </div>
                   <div>
                     <span className="text-xs font-semibold uppercase tracking-wide text-accent">
                       {r.category}

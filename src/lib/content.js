@@ -4,10 +4,14 @@
  *
  * Convenciones del editor:
  *   - Una línea en blanco separa párrafos.
- *   - `## Texto`  → subtítulo
- *   - `> Texto`   → cita destacada
- *   - `- Texto`   → elemento de lista (varias líneas seguidas = una lista)
+ *   - `## Texto`        → subtítulo
+ *   - `> Texto`         → cita destacada
+ *   - `- Texto`         → elemento de lista (varias líneas seguidas = una lista)
+ *   - `![pie](url)`     → imagen (el texto entre corchetes es el pie opcional)
  */
+
+// Coincide con una línea que es solo una imagen: ![pie opcional](url)
+const IMG_RE = /^!\[([^\]]*)\]\(([^)]+)\)$/
 export function parseContent(content) {
   if (Array.isArray(content)) return content // ya son bloques (posts de ejemplo)
   if (!content) return []
@@ -24,7 +28,13 @@ export function parseContent(content) {
       .filter(Boolean)
     if (lines.length === 0) continue
 
-    if (lines.every((l) => l.startsWith('- '))) {
+    // Una o varias imágenes en el bloque (cada línea es una imagen propia).
+    if (lines.every((l) => IMG_RE.test(l))) {
+      for (const l of lines) {
+        const [, alt, src] = l.match(IMG_RE)
+        blocks.push({ type: 'img', src: src.trim(), alt: alt.trim() })
+      }
+    } else if (lines.every((l) => l.startsWith('- '))) {
       blocks.push({ type: 'ul', items: lines.map((l) => l.slice(2).trim()) })
     } else if (lines[0].startsWith('## ')) {
       blocks.push({ type: 'h2', text: lines[0].slice(3).trim() })
@@ -57,6 +67,7 @@ export function normalizePost(row) {
     date: row.date,
     readMins: Number(row.read_mins) || 4,
     cover: [row.cover_from || '#004088', row.cover_to || '#003066'],
+    coverImage: row.cover_image || '',
     featured: !!Number(row.featured),
     status: row.status || 'published',
     content: parseContent(row.content),

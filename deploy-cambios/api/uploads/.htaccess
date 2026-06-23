@@ -1,0 +1,6 @@
+# Carpeta de imágenes subidas: servir como archivos estáticos, nunca ejecutar código.
+php_flag engine off
+
+<FilesMatch "\.(php|phtml|phar|cgi|pl|py|sh)$">
+  Require all denied
+</FilesMatch>

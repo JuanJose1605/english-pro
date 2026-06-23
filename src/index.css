@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --nav-h: 6.5rem; /* sticky navbar height, used for scroll-margin */
+    --nav-h: 8rem; /* sticky navbar height, used for scroll-margin */
   }
 
   html {

@@ -59,3 +59,20 @@ export const updatePost = (id, data) =>
 
 export const deletePost = (id) =>
   req('posts.php', { method: 'DELETE', body: JSON.stringify({ id }) })
+
+/* ---------------- Subida de imágenes (admin) ---------------- */
+
+// No usa `req`: con FormData el navegador debe poner el Content-Type (con el
+// boundary) automáticamente, así que NO enviamos cabecera JSON.
+export async function uploadImage(file) {
+  const fd = new FormData()
+  fd.append('file', file)
+  const res = await fetch(`${API}/upload.php`, {
+    method: 'POST',
+    credentials: 'same-origin',
+    body: fd,
+  })
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok) throw new Error(data.error || 'No se pudo subir la imagen.')
+  return data.url
+}
