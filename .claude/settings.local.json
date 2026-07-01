@@ -26,7 +26,10 @@
       "Bash(tar -tf englishpro-cambios.zip)",
       "Bash(xxd)",
       "Bash(unzip -t englishpro-cambios-v2.zip)",
-      "Bash(/c/Users/Juan/AppData/Local/Programs/Python/Python312/python *)"
+      "Bash(/c/Users/Juan/AppData/Local/Programs/Python/Python312/python *)",
+      "Bash(command -v unzip)",
+      "Bash(unzip -l cambios-cpanel.zip)",
+      "Bash(powershell -Command \"Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::OpenRead\\(\\(Resolve-Path 'cambios-cpanel.zip'\\)\\).Entries | Select-Object FullName, Length\")"
     ]
   }
 }

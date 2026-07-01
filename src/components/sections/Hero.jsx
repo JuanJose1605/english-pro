@@ -13,7 +13,7 @@ export default function Hero({ onOpenQuiz }) {
         <div className="absolute -right-20 top-40 h-80 w-80 rounded-full bg-accent-50 blur-3xl" />
       </div>
 
-      <div className="container-pro grid items-center gap-12 py-12 sm:py-16 lg:grid-cols-2 lg:py-20">
+      <div className="container-pro grid items-center gap-12 pb-12 pt-4 sm:pb-16 sm:pt-6 lg:grid-cols-2 lg:pb-20 lg:pt-8">
         {/* Copy */}
         <div className="max-w-xl">
           <motion.span

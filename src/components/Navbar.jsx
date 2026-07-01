@@ -62,8 +62,10 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
-          scrolled ? 'bg-white/90 shadow-soft backdrop-blur-md' : 'bg-white/70 backdrop-blur-sm'
+        className={`fixed inset-x-0 top-0 z-40 border-b transition-all duration-300 ${
+          scrolled
+            ? 'border-slate-200 bg-slate-100/95 shadow-soft backdrop-blur-md'
+            : 'border-slate-200/60 bg-slate-100/85 backdrop-blur-sm'
         }`}
         style={{ height: 'var(--nav-h)' }}
       >
@@ -204,7 +206,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 top-[var(--nav-h)] z-40 bg-white lg:hidden"
+            className="fixed inset-0 top-[var(--nav-h)] z-40 bg-slate-100 lg:hidden"
           >
             <motion.ul
               className="container-pro flex flex-col gap-1 py-6"
